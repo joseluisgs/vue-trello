@@ -99,7 +99,7 @@ Codificado con :sparkling_heart: por [José Luis González Sánchez](https://twi
     height="30">
     </a> &nbsp;&nbsp;
     <a href="https://g.dev/joseluisgs" target="_blank">
-        <img loading="lazy" src="https://googlediscovery.com/wp-content/uploads/google-developers.png" 
+        <img loading="lazy" src="https://www.tirsomaldonado.es/wp-content/uploads/2022/03/kanban.jpg" 
     height="30">
     </a>    
 </p>
