@@ -14,6 +14,7 @@
     "vue-router": "^4.1.6"
   },
   "devDependencies": {
+    "@iconify/vue": "^4.0.2",
     "@rushstack/eslint-patch": "^1.1.4",
     "@tailwindcss/typography": "^0.5.8",
     "@vitejs/plugin-vue": "^4.0.0",
