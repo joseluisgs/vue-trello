@@ -3,7 +3,7 @@
     <div class="flex-1">
       <Icon
         icon="mdi:trello"
-        class="h-8 w-8 text-secondary-focus mr-1"
+        class="mr-1 h-8 w-8 text-secondary-focus"
       />
       <h1 class="text-center font-sans text-3xl font-semibold tracking-wide text-primary">
         Vue Trello
@@ -51,7 +51,8 @@
               <Icon
                 icon="mdi:theme-light-dark"
                 class="h-5 w-5 text-primary"
-              /> Tema
+              />
+              Tema
               <div class="form-control">
                 <input
                   data-toggle-theme="light,night"
@@ -68,15 +69,22 @@
     </div>
   </div>
   <div class="flex justify-center">
-    <div class="text-center">
+    <div class="flex flex-col text-center">
       <h1 class="font-sans text-3xl font-semibold tracking-wide text-primary">
         {{ boardName }}
       </h1>
-      <a
-        href="#"
-        class="ml-2 mt-3 text-sm text-secondary"
-        >Create column</a
-      >
+      <div class="flex flex-row items-center justify-center">
+        <Icon
+          icon="uil:create-dashboard"
+          class="mr-2 text-secondary"
+        />
+        <a
+          href="#"
+          class="text-sm text-secondary"
+        >
+          Create column</a
+        >
+      </div>
     </div>
   </div>
 </template>

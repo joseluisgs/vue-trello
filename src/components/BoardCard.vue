@@ -4,7 +4,14 @@
       {{ card.name }}
     </h4>
     <div class="mt-4 flex items-center justify-between">
-      <p class="text-sm text-gray-600">{{ cardDate }}</p>
+      <div class="flex flex-row justify-center items-center">
+        <Icon
+          icon="material-symbols:calendar-month"
+          class="text-gray-600 mr-1"
+        />
+        <p class="text-sm text-gray-600">{{ cardDate }}</p>
+      </div>
+  
       <UserAvatar />
     </div>
   </div>
@@ -12,6 +19,7 @@
 
 <script setup>
   import UserAvatar from '@/components/UserAvatar.vue'
+  import { Icon } from '@iconify/vue'
   import { computed } from 'vue'
 
   // Mis propiedades
