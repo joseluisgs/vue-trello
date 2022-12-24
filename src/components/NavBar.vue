@@ -1,47 +1,82 @@
 <template>
-  <div class="relative flex items-start justify-center">
-    <div class="flex items-center">
-      <div>
-        <h1 class="text-center font-sans text-3xl font-semibold tracking-wide text-gray-700">
-          {{ boardName }}
-        </h1>
-        <a
-          href="#"
-          class="ml-2 mt-3 block text-center text-sm"
-          >Create column</a
-        >
-      </div>
-    </div>
-    <div class="absolute right-0 top-0 flex items-center">
-      <a
-        href="#"
-        class="mr-2 text-sm"
-        >Change background</a
-      >
-      <input
-        type="search"
-        class="mr-3 rounded bg-gray-300 p-1 text-sm text-gray-600"
-        placeholder="Search cards"
-      />
-      <UserAvatar />
-      <a
-        href="#"
-        class="ml-2 text-sm"
-        >Logout</a
-      >
+  <div class="navbar bg-base-100">
+    <div class="flex-1">
       <Icon
-        icon="mdi:theme-light-dark"
-        class="mx-1 text-2xl text-primary-focus"
+        icon="mdi:trello"
+        class="h-8 w-8 text-secondary-focus mr-1"
       />
+      <h1 class="text-center font-sans text-3xl font-semibold tracking-wide text-primary">
+        Vue Trello
+      </h1>
+    </div>
+    <div class="flex-none gap-2">
       <div class="form-control">
         <input
-          data-toggle-theme="light,night"
-          data-act-class="night"
-          type="checkbox"
-          class="toggle-primary toggle"
-          checked
+          type="text"
+          placeholder="Search Card"
+          class="input-bordered input"
         />
       </div>
+      <div class="dropdown-end dropdown">
+        <label
+          tabindex="0"
+          class="btn-ghost btn-circle avatar btn"
+        >
+          <UserAvatar />
+        </label>
+        <ul
+          tabindex="0"
+          class="dropdown-content menu rounded-box menu-compact mt-3 w-52 bg-base-100 p-2 shadow"
+        >
+          <li>
+            <a
+              ><Icon
+                icon="material-symbols:logout"
+                class="h-5 w-5 text-primary"
+              />
+              Logout</a
+            >
+          </li>
+          <li>
+            <a>
+              <Icon
+                icon="fluent:color-background-20-filled"
+                class="h-5 w-5 text-primary"
+              />
+              Background
+            </a>
+          </li>
+          <li>
+            <a>
+              <Icon
+                icon="mdi:theme-light-dark"
+                class="h-5 w-5 text-primary"
+              /> Tema
+              <div class="form-control">
+                <input
+                  data-toggle-theme="light,night"
+                  data-act-class="night"
+                  type="checkbox"
+                  class="toggle-primary toggle"
+                  checked
+                />
+              </div>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="flex justify-center">
+    <div class="text-center">
+      <h1 class="font-sans text-3xl font-semibold tracking-wide text-primary">
+        {{ boardName }}
+      </h1>
+      <a
+        href="#"
+        class="ml-2 mt-3 text-sm text-secondary"
+        >Create column</a
+      >
     </div>
   </div>
 </template>
