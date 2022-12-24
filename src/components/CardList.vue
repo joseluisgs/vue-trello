@@ -1,15 +1,21 @@
 <template>
-  <BoardCard
-    v-for="card in cards"
-    :key="card.id"
-    :card="card"
-  />
+  <!-- draggable -->
+  <draggable
+    v-model="cards"
+    group="cards"
+    item-key="id"
+  >
+    <template #item="{ element }">
+      <BoardCard :card="element" />
+    </template>
+  </draggable>
 </template>
 
 <script setup>
   import BoardCard from '@/components/BoardCard.vue'
   import { useBoardStore } from '@/stores/board'
   import { computed } from 'vue'
+  import draggable from 'vuedraggable' // Para arrastrar
 
   // Mis propiedades
   const props = defineProps({
@@ -22,7 +28,14 @@
   const boardStore = useBoardStore()
 
   // De nuevo podemos usar directamente la store
-  const cards = computed(() => boardStore.getCardsByColumn(props.column.id))
+  const cards = computed({
+    get: () => boardStore.getCardsByColumn(props.column.id),
+    set: (cards) =>
+      boardStore.updateCards({
+        column: props.column,
+        cards: cards,
+      }),
+  })
 </script>
 
 <style scoped></style>

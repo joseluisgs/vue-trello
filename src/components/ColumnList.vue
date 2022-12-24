@@ -1,14 +1,18 @@
 <template>
-  <div class="board">
-    <!-- recorremos las columnas -->
-    <AppColumn
-      v-for="column in columns"
-      :key="column.id"
-      :column="column"
-    >
-      <CardList :column="column" />
-    </AppColumn>
-  </div>
+  <!-- draggable -->
+  <draggable
+    v-model="columns"
+    class="board"
+    item-key="id"
+    group="columns"
+  >
+    <!-- Mirar la documentación porque se debe llamar así-->
+    <template #item="{ element }">
+      <AppColumn :column="element">
+        <CardList :column="element" />
+      </AppColumn>
+    </template>
+  </draggable>
 </template>
 
 <script setup>
@@ -16,10 +20,15 @@
   import CardList from '@/components/CardList.vue'
   import { useBoardStore } from '@/stores/board'
   import { computed } from 'vue'
+  import draggable from 'vuedraggable' // Para arrastrar
 
   // La store
   const boardStore = useBoardStore()
-  const columns = computed(() => boardStore.boardColumns)
+  // getter y setter
+  const columns = computed({
+    get: () => boardStore.boardColumns,
+    set: (columns) => boardStore.updateColumns(columns),
+  })
 </script>
 
 <style scoped>

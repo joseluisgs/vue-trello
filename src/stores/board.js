@@ -22,10 +22,23 @@ export const useBoardStore = defineStore('board', () => {
   )
 
   // Mutations y Actions son funciones
-  // function increment() {
-  //   count.value++
-  // }
+  function updateColumns(columns) {
+    console.log('updateColumns', columns)
+  }
+
+  function updateCards({ column, cards }) {
+    console.log('updateCards', { column, cards })
+  }
 
   // Devolvemos el estado y las funciones que queramos que sean publicas
-  return { board, columns, cards, boardName, boardColumns, getCardsByColumn }
+  return {
+    board,
+    columns,
+    cards,
+    boardName,
+    boardColumns,
+    getCardsByColumn,
+    updateColumns,
+    updateCards,
+  }
 })
