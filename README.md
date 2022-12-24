@@ -8,7 +8,7 @@ Práctica de clon de Trello, es decir, una aplicación de gestión de tareas, us
 ![GitHub](https://img.shields.io/github/last-commit/joseluisgs/vue-trello)
 
 <p align="center">
-  <a href="https://joseluisgs.github.io/" target="_blank"><img src="https://kinsta.com/es/wp-content/uploads/sites/8/2020/07/tablero-kaban.png" 
+  <a href="https://joseluisgs.github.io/" target="_blank"><img src="https://www.tirsomaldonado.es/wp-content/uploads/2022/03/kanban.jpg" 
   width='600px' borderRadius='1rem' boxShadow = '0 5px 18px rgba(0,0,0,0.3)'></a>
 </p>
 
@@ -99,7 +99,7 @@ Codificado con :sparkling_heart: por [José Luis González Sánchez](https://twi
     height="30">
     </a> &nbsp;&nbsp;
     <a href="https://g.dev/joseluisgs" target="_blank">
-        <img loading="lazy" src="https://www.tirsomaldonado.es/wp-content/uploads/2022/03/kanban.jpg" 
+        <img loading="lazy" src="https://googlediscovery.com/wp-content/uploads/google-developers.png" 
     height="30">
     </a>    
 </p>
