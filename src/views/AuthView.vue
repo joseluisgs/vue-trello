@@ -6,8 +6,8 @@
   import { useUserStore } from '@/stores/user'
 
   const userStore = useUserStore()
-  console.log('user', userStore.user)
-  console.log('avatar', userStore.userAvatar)
+  // console.log('user', userStore.user)
+  // console.log('avatar', userStore.userAvatar)
 </script>
 
 <style scoped></style>

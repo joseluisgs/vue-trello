@@ -29,6 +29,19 @@
         class="ml-2 text-sm"
         >Logout</a
       >
+      <Icon
+        icon="mdi:theme-light-dark"
+        class="mx-1 text-2xl text-primary-focus"
+      />
+      <div class="form-control">
+        <input
+          data-toggle-theme="light,night"
+          data-act-class="night"
+          type="checkbox"
+          class="toggle-primary toggle"
+          checked
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -36,10 +49,17 @@
 <script setup>
   import UserAvatar from '@/components/UserAvatar.vue'
   import { useBoardStore } from '@/stores/board'
-  import { computed } from 'vue'
+  import { Icon } from '@iconify/vue'
+  import { themeChange } from 'theme-change'
+  import { computed, onMounted } from 'vue'
 
   // La store
   const boardStore = useBoardStore()
+
+  // Cuando se monta el componente, se cambia el tema
+  onMounted(() => {
+    themeChange(false)
+  })
 
   // computed de avatar, podría usar la store directamente
   const boardName = computed(() => boardStore.boardName)

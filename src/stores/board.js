@@ -16,6 +16,10 @@ export const useBoardStore = defineStore('board', () => {
   const boardColumns = computed(() =>
     columns.value.filter((column) => column.board === board.value.id)
   )
+  const getCardsByColumn = computed(
+    () => (column) =>
+      cards.value.filter((card) => card.column === column).sort((a, b) => a.order - b.order)
+  )
 
   // Mutations y Actions son funciones
   // function increment() {
@@ -23,5 +27,5 @@ export const useBoardStore = defineStore('board', () => {
   // }
 
   // Devolvemos el estado y las funciones que queramos que sean publicas
-  return { board, columns, cards, boardName, boardColumns }
+  return { board, columns, cards, boardName, boardColumns, getCardsByColumn }
 })
