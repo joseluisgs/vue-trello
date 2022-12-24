@@ -15,6 +15,7 @@ module.exports = {
     // require('@tailwindcss/forms'),
     // require('tailwind-scrollbar'),
     // // Scrollbar sin css: https://stackoverflow.com/questions/69400560/how-to-change-scrollbar-when-using-tailwind-next-js-react
+    // Scroll bars personalizados 
     plugin(({ addBase, theme }) => {
       addBase({
         '.scrollbar': {
@@ -49,9 +50,9 @@ module.exports = {
   daisyui: {
     // Se ponen por orden
     themes: [
+      'light',
       'night', // Al ponerlo es elk tema por
       'dark',
-      'light',
       {
         // Un tema personalizado con daisyui
         // https://daisyui.com/theme-generator/
