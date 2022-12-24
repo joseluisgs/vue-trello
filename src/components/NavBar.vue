@@ -1,5 +1,5 @@
 <template>
-  <div class="| relative flex items-start justify-center">
+  <div class="relative flex items-start justify-center">
     <div class="flex items-center">
       <div>
         <h1 class="text-center font-sans text-3xl font-semibold tracking-wide text-gray-700">

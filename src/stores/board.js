@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { ref, computed } from 'vue'
+import { computed, ref } from 'vue'
 
 import { board as seedBoard, cards as seedCards, columns as seedColumns } from '@/services/seed.js'
 
@@ -13,6 +13,9 @@ export const useBoardStore = defineStore('board', () => {
 
   // Getter son computed
   const boardName = computed(() => board.value.name)
+  const boardColumns = computed(() =>
+    columns.value.filter((column) => column.board === board.value.id)
+  )
 
   // Mutations y Actions son funciones
   // function increment() {
@@ -20,5 +23,5 @@ export const useBoardStore = defineStore('board', () => {
   // }
 
   // Devolvemos el estado y las funciones que queramos que sean publicas
-  return { board, columns, cards, boardName }
+  return { board, columns, cards, boardName, boardColumns }
 })

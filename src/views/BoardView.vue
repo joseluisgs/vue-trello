@@ -1,9 +1,11 @@
 <template>
   <NavBar />
+  <ColumnList />
   <RouterView />
 </template>
 
 <script setup>
+  import ColumnList from '@/components/ColumnList.vue'
   import NavBar from '@/components/NavBar.vue'
   import { useBoardStore } from '@/stores/board'
 

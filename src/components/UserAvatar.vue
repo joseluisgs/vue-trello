@@ -1,9 +1,9 @@
 <template>
   <div class="avatar">
-  <div class="w-8 rounded-full">
-    <img :src="userAvatar" />
+    <div class="w-8 rounded-full">
+      <img :src="userAvatar" />
+    </div>
   </div>
-</div>
 </template>
 
 <script setup>
