@@ -1,16 +1,16 @@
 import { defineStore } from 'pinia'
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 
 import { user as seedUser } from '@/services/seed.js'
 
 // Definimo nuestra store con Oinia similar a un composable!!!
 
-export const userStore = defineStore('user', () => {
+export const useUserStore = defineStore('user', () => {
   // Estado son ref
   const user = ref(seedUser)
 
   // Getter son computed
-  //const doubleCount = computed(() => count.value * 2)
+  const userAvatar = computed(() => user.value.avatar)
 
   // Mutations y Actions son funciones
   // function increment() {
@@ -18,5 +18,5 @@ export const userStore = defineStore('user', () => {
   // }
 
   // Devolvemos el estado y las funciones que queramos que sean publicas
-  return { user }
+  return { user, userAvatar }
 })

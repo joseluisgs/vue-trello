@@ -1,12 +1,13 @@
 <template>
-  <div>Board View</div>
+  <NavBar />
   <RouterView />
 </template>
 
 <script setup>
-import { boardStore } from '@/stores/board'
- 
-  const { board, columns, cards } = boardStore()
+  import NavBar from '@/components/NavBar.vue'
+  import { useBoardStore } from '@/stores/board'
+
+  const { board, columns, cards } = useBoardStore()
   console.log('board', board)
   console.log('columns', columns)
   console.log('cards', cards)

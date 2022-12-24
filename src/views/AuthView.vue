@@ -3,10 +3,11 @@
 </template>
 
 <script setup>
-  import { userStore } from '@/stores/user'
+  import { useUserStore } from '@/stores/user'
 
-  const { user } = userStore()
-  console.log('user', user)
+  const userStore = useUserStore()
+  console.log('user', userStore.user)
+  console.log('avatar', userStore.userAvatar)
 </script>
 
 <style scoped></style>
