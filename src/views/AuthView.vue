@@ -2,6 +2,11 @@
   <div>Auth View</div>
 </template>
 
-<script setup></script>
+<script setup>
+  import { userStore } from '@/stores/user'
+
+  const { user } = userStore()
+  console.log('user', user)
+</script>
 
 <style scoped></style>

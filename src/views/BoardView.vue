@@ -3,6 +3,13 @@
   <RouterView />
 </template>
 
-<script setup></script>
+<script setup>
+import { boardStore } from '@/stores/board'
+ 
+  const { board, columns, cards } = boardStore()
+  console.log('board', board)
+  console.log('columns', columns)
+  console.log('cards', cards)
+</script>
 
 <style scoped></style>
