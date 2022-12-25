@@ -21,8 +21,11 @@ export const firebaseApp = initializeApp({
 // used for the firestore refs
 const db = getFirestore(firebaseApp)
 
-// here we can export reusable database references
-export const boardsRef = collection(db, 'vuetrello-boards')
+// here we can export reusable database references or collection references
+export const boardsCollection = collection(db, 'vuetrello-boards')
+export const columnsCollection = collection(db, 'vuetrello-columns')
+export const cardsCollection = collection(db, 'vuetrello-cards')
+
 
 // Métodos de autentificación. Autenticación de Google, poner uno por método de identificación. Se debe activar en la consola de Firebase
 //export const providerGoogle = new GoogleAuthProvider()

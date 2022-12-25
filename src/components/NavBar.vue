@@ -29,6 +29,11 @@
           class="dropdown-content menu rounded-box menu-compact mt-3 w-52 bg-base-100 p-2 shadow"
         >
           <li>
+            <a>
+              {{ userStore.userDisplayName }}</a
+            >
+          </li>
+          <li>
             <a @click="userLogout"
               ><Icon
                 icon="material-symbols:logout"

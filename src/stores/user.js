@@ -19,6 +19,11 @@ export const useUserStore = defineStore('user', () => {
     return avatar
   })
 
+  const userDisplayName = computed(() => {
+    const displayName = user.value?.displayName || ''
+    return displayName
+  })
+
   // Mutations y Actions son funciones
   function setUser(currentUser) {
     user.value = currentUser
@@ -46,5 +51,5 @@ export const useUserStore = defineStore('user', () => {
   }
 
   // Devolvemos el estado y las funciones que queramos que sean publicas, quitar user si no queremos que sea publico
-  return { user, userAvatar, userLogin, userLogout, getUser }
+  return { user, userAvatar, userDisplayName, userLogin, userLogout, getUser }
 })
