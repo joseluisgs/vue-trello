@@ -95,7 +95,7 @@
   import { useUserStore } from '@/stores/user'
   import { Icon } from '@iconify/vue'
   import { themeChange } from 'theme-change'
-import { computed, onMounted } from 'vue'
+  import { computed, onMounted } from 'vue'
   import { useRouter } from 'vue-router'
 
   // La store

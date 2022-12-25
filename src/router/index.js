@@ -1,8 +1,11 @@
-import { createRouter, createWebHistory } from 'vue-router'
 import AuthView from '@/views/AuthView.vue'
+import { createRouter, createWebHistory } from 'vue-router'
 // import BoardView from '@/views/BoardView.vue'
 // import CardView from '@/views/CardView.vue'
 // import NotFoundView from '@/views/NotFoundView.vue'
+
+// Importamos la store
+import { useUserStore } from '@/stores/user'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -18,6 +21,10 @@ const router = createRouter({
       name: 'Board',
       component: () => import(/* webpackChunkName: "Board" */ '../views/BoardView.vue'),
       //component: BoardView,
+      // Le decimos que requiere autenticacion en base a una meta propiedad
+      meta: {
+        requiresAuth: true,
+      },
       // Mi ruta hija
       children: [
         {
@@ -35,6 +42,27 @@ const router = createRouter({
       //component: NotFoundView,
     },
   ],
+})
+
+// Creamos un guard para proteger las rutas
+router.beforeEach(async (to, from, next) => {
+  // Obtenemos la store
+  const userStore = useUserStore()
+  const user = await userStore.getUser()
+  const requiresAuth = to.matched.some((record) => record.meta.requiresAuth) // Si alguna de las rutas que estoy visitando tiene la meta propiedad requiresAuth
+
+  // Si requiere autenticacion y no hay usuario, redirigimos a Auth
+  if (requiresAuth && !user) {
+    next({ name: 'Auth' })
+  }
+
+  // si va a Auth y hay usuario, redirigimos a Board
+  else if (to.name === 'Auth' && user) {
+    next({ name: 'Board' })
+  }
+
+  // Si no hay ninguna de las anteriores, seguimos
+  next()
 })
 
 export default router

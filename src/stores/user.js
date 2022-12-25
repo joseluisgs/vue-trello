@@ -9,12 +9,12 @@ import { getCurrentUser, useFirebaseAuth } from 'vuefire'
 
 export const useUserStore = defineStore('user', () => {
   // Estado son ref
-  const user = ref(null) //ref(seedUser)
+  const user = ref(null)
 
   // Getter son computed
   const userAvatar = computed(() => {
     const avatar =
-      user.value?.providerData[0].photoURL ||
+      user.value?.photoURL ||
       'https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/User-avatar.svg/1200px-User-avatar.svg.png'
     return avatar
   })
@@ -28,13 +28,14 @@ export const useUserStore = defineStore('user', () => {
     // Get user from firebase
     const currentUser = await getCurrentUser()
     setUser(currentUser)
+    return currentUser
   }
 
   async function userLogin() {
     // Login with firebase
     const auth = useFirebaseAuth()
-    const result = await signInWithPopup(auth, new GoogleAuthProvider())
-    setUser(result.user)
+    await signInWithPopup(auth, new GoogleAuthProvider())
+    getUser()
   }
 
   async function userLogout() {
@@ -44,6 +45,6 @@ export const useUserStore = defineStore('user', () => {
     setUser(null)
   }
 
-  // Devolvemos el estado y las funciones que queramos que sean publicas
+  // Devolvemos el estado y las funciones que queramos que sean publicas, quitar user si no queremos que sea publico
   return { user, userAvatar, userLogin, userLogout, getUser }
 })
