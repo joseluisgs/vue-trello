@@ -29,7 +29,7 @@
           class="dropdown-content menu rounded-box menu-compact mt-3 w-52 bg-base-100 p-2 shadow"
         >
           <li>
-            <a
+            <a @click="userLogout"
               ><Icon
                 icon="material-symbols:logout"
                 class="h-5 w-5 text-primary"
@@ -92,12 +92,18 @@
 <script setup>
   import UserAvatar from '@/components/UserAvatar.vue'
   import { useBoardStore } from '@/stores/board'
+  import { useUserStore } from '@/stores/user'
   import { Icon } from '@iconify/vue'
   import { themeChange } from 'theme-change'
-  import { computed, onMounted } from 'vue'
+import { computed, onMounted } from 'vue'
+  import { useRouter } from 'vue-router'
 
   // La store
   const boardStore = useBoardStore()
+  const userStore = useUserStore()
+
+  // router
+  const router = useRouter()
 
   // Cuando se monta el componente, se cambia el tema
   onMounted(() => {
@@ -106,6 +112,15 @@
 
   // computed de avatar, podría usar la store directamente
   const boardName = computed(() => boardStore.boardName)
+
+  async function userLogout() {
+    try {
+      await userStore.userLogout()
+      router.push({ name: 'Auth' })
+    } catch (error) {
+      console.log(error)
+    }
+  }
 </script>
 
 <style scoped></style>

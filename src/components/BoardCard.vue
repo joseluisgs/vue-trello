@@ -9,7 +9,7 @@
           icon="material-symbols:calendar-month"
           class="text-gray-600 mr-1"
         />
-        <p class="text-sm text-gray-600">{{ cardDate }}</p>
+        <p class="text-xs text-gray-600">{{ cardDate }}</p>
       </div>
   
       <UserAvatar />
