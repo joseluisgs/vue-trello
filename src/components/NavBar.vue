@@ -73,7 +73,11 @@
   </div>
   <div class="flex justify-center">
     <div class="flex flex-col text-center">
-      <h1 class="font-sans text-3xl font-semibold tracking-wide text-primary">
+      <h1
+        class="font-sans text-3xl font-semibold tracking-wide text-primary"
+        contenteditable
+        @blur="onEdit"
+      >
         {{ boardName }}
       </h1>
       <div class="flex flex-row items-center justify-center">
@@ -130,6 +134,16 @@
     try {
       const user = await userStore.getUser()
       await boardStore.createColumn(user)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  async function onEdit(event) {
+    try {
+      const user = await userStore.getUser()
+      if(event.target.innerText.trim() === '') return event.target.innerText = boardName.value
+      await boardStore.updateBoardName(user.uid, event.target.innerText.trim())
     } catch (error) {
       console.log(error)
     }

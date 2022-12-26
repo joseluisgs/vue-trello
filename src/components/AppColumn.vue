@@ -1,10 +1,10 @@
 <template>
   <div class="column mr-4 cursor-move rounded bg-gray-100 p-3 shadow-md">
     <div class="flex justify-between">
-      <div class="flex flex-row justify-center items-center">
+      <div class="flex flex-row items-center justify-center">
         <Icon
           icon="material-symbols:delete"
-          class="text-gray-600 mr-1"
+          class="mr-1 text-gray-600"
         />
         <a
           href="#"
@@ -14,10 +14,10 @@
         >
       </div>
 
-      <div class="flex flex-row justify-center items-center">
+      <div class="flex flex-row items-center justify-center">
         <Icon
           icon="mdi:card-plus"
-          class="text-gray-600 mr-1"
+          class="mr-1 text-gray-600"
         />
         <a
           href="#"
@@ -26,9 +26,12 @@
           Create Card</a
         >
       </div>
-      
     </div>
-    <h3 class="mb-3 text-center font-sans text-xl font-semibold tracking-wide text-primary-focus">
+    <h3
+      class="mb-3 cursor-default text-center font-sans text-xl font-semibold tracking-wide text-primary-focus"
+      contenteditable
+      @blur="onEdit"
+    >
       {{ column.name }}
     </h3>
     <!-- Card -->
@@ -37,7 +40,8 @@
 </template>
 
 <script setup>
-import { Icon } from '@iconify/vue'
+  import { useBoardStore } from '@/stores/board'
+  import { Icon } from '@iconify/vue'
   // Mis propiedades
   const props = defineProps({
     column: {
@@ -45,7 +49,17 @@ import { Icon } from '@iconify/vue'
     },
   })
 
+  const boardStore = useBoardStore()
+
   // Mis metodos
+  async function onEdit(event) {
+    try {
+      if (event.target.innerText.trim() === '') return (event.target.innerText = props.column.name)
+      await boardStore.updateColummnName(props.column.id, event.target.innerText.trim())
+    } catch (error) {
+      console.log(error)
+    }
+  }
 </script>
 
 <style scoped>

@@ -3,7 +3,7 @@ import { computed, ref } from 'vue'
 
 // Firebase
 import { boardsCollection, columnsCollection } from '@/services/Firebase'
-import { doc, getDoc, query, setDoc, where, onSnapshot } from 'firebase/firestore'
+import { doc, getDoc, onSnapshot, query, setDoc, where, updateDoc } from 'firebase/firestore'
 
 // Definimo nuestra store con Oinia similar a un composable!!!
 
@@ -56,6 +56,13 @@ export const useBoardStore = defineStore('board', () => {
     }
   }
 
+  async function updateBoardName(uid, newName) {
+    const boardRef = doc(boardsCollection, uid)
+    await updateDoc(boardRef, {
+      name: newName,
+    })
+  }
+
   function setColumns(newColumns) {
     columns.value = newColumns
   }
@@ -87,6 +94,13 @@ export const useBoardStore = defineStore('board', () => {
     await setDoc(refDoc, column)
   }
 
+  async function updateColummnName(idColumn, newName) {
+    const columnRef = doc(columnsCollection, idColumn)
+    await updateDoc(columnRef, {
+      name: newName,
+    })
+  }
+
   function updateColumns(columns) {
     console.log('updateColumns', columns)
   }
@@ -102,16 +116,19 @@ export const useBoardStore = defineStore('board', () => {
   }
 
   // Devolvemos el estado y las funciones que queramos que sean publicas
+  // quitar las que no queramos que sean publicas
   return {
     board,
     columns,
     cards,
     boardName,
     boardColumns,
+    updateBoardName,
     getCardsByColumn,
     updateColumns,
     updateCards,
     createColumn,
+    updateColummnName,
     initData,
   }
 })
