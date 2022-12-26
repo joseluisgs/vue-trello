@@ -3,7 +3,7 @@ import { computed, ref } from 'vue'
 
 // Firebase
 import { boardsCollection, columnsCollection } from '@/services/Firebase'
-import { doc, getDoc, onSnapshot, query, setDoc, where, updateDoc } from 'firebase/firestore'
+import { doc, getDoc, onSnapshot, query, setDoc, updateDoc, where } from 'firebase/firestore'
 
 // Definimo nuestra store con Oinia similar a un composable!!!
 
@@ -16,7 +16,9 @@ export const useBoardStore = defineStore('board', () => {
   // Getter son computed
   const boardName = computed(() => board.value.name)
   const boardColumns = computed(() =>
-    columns.value.filter((column) => column.board === board.value.id)
+    columns.value
+      .filter((column) => column.board === board.value.id)
+      .sort((a, b) => a.order - b.order)
   )
   const getCardsByColumn = computed(
     () => (column) =>
