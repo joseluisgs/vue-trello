@@ -12,7 +12,7 @@
     <div class="container">
       <a
         @click="userLogin"
-        class="flex h-screen w-full items-center justify-center text-primary underline hover:text-primary-focus cursor-pointer font-semibold"
+        class="flex h-screen w-full cursor-pointer items-center justify-center font-semibold text-primary underline hover:text-primary-focus"
         href="#"
         ><Icon icon="material-symbols:login" /> Login please</a
       >
@@ -23,10 +23,17 @@
 <script setup>
   import { useUserStore } from '@/stores/user'
   import { Icon } from '@iconify/vue'
+  import { themeChange } from 'theme-change'
+  import { onMounted } from 'vue'
   import { useRouter } from 'vue-router'
 
   const userStore = useUserStore()
   const router = useRouter()
+
+  // Cuando se monta el componente, se cambia el tema
+  onMounted(() => {
+    themeChange(false)
+  })
 
   async function userLogin() {
     try {

@@ -13,6 +13,8 @@ export const useBoardStore = defineStore('board', () => {
   const columns = ref([])
   const cards = ref([])
 
+  const unsubscribeBoard = ref(null)
+
   // Getter son computed
   const boardName = computed(() => board.value.name)
   const boardColumns = computed(() =>
@@ -73,7 +75,7 @@ export const useBoardStore = defineStore('board', () => {
     console.log('obteniendo columnas')
     const uid = user.uid
     const q = query(columnsCollection, where('board', '==', uid))
-    const unsubscribe = onSnapshot(q, (querySnapshot) => {
+    unsubscribeBoard.value = onSnapshot(q, (querySnapshot) => {
       const columns = []
       querySnapshot.forEach((doc) => {
         columns.push(doc.data())
@@ -111,10 +113,16 @@ export const useBoardStore = defineStore('board', () => {
     console.log('updateCards', { column, cards })
   }
 
-  async function initData(user) {
+  async function initBoard(user) {
     console.log('initData')
     await getBoard(user)
     await getColumns(user)
+  }
+
+  async function resetBoard() {
+    // Quitamos los listeners de firebase
+    console.log('unsubscribe')
+    unsubscribeBoard.value()
   }
 
   // Devolvemos el estado y las funciones que queramos que sean publicas
@@ -131,6 +139,7 @@ export const useBoardStore = defineStore('board', () => {
     updateCards,
     createColumn,
     updateColummnName,
-    initData,
+    initBoard,
+    resetBoard,
   }
 })

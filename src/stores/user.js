@@ -47,10 +47,13 @@ export const useUserStore = defineStore('user', () => {
     // Get board from firebase
     const boardStore = useBoardStore()
     // Inicializamos el board
-    await boardStore.initData(user.value)
+    await boardStore.initBoard(user.value)
   }
 
   async function userLogout() {
+    // Reset board
+    const boardStore = useBoardStore()
+    boardStore.resetBoard()
     // Logout from firebase
     await auth.signOut()
     setUser(null)
