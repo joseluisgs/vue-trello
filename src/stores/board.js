@@ -4,7 +4,6 @@ import { computed, ref } from 'vue'
 // Firebase
 import { boardsCollection, columnsCollection } from '@/services/Firebase'
 import { doc, getDoc, query, setDoc, where, onSnapshot } from 'firebase/firestore'
-import { useCollection } from 'vuefire'
 
 // Definimo nuestra store con Oinia similar a un composable!!!
 
@@ -66,10 +65,6 @@ export const useBoardStore = defineStore('board', () => {
     console.log('obteniendo columnas')
     const uid = user.uid
     const q = query(columnsCollection, where('board', '==', uid))
-    // const columns = useCollection(q)
-    // setColumns(columns.value)
-
-    // Otra forma con do snapsoht, doc
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       const columns = []
       querySnapshot.forEach((doc) => {

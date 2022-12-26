@@ -2,8 +2,8 @@ import { defineStore } from 'pinia'
 import { computed, ref } from 'vue'
 
 // Firebase
-import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
-import { getCurrentUser, useFirebaseAuth } from 'vuefire'
+import { signInWithPopup, GoogleAuthProvider } from 'firebase/auth'
+import { auth } from '@/services/Firebase'
 
 // Definimo nuestra store con Oinia similar a un composable!!!
 
@@ -31,7 +31,7 @@ export const useUserStore = defineStore('user', () => {
 
   async function getUser() {
     // Get user from firebase
-    const currentUser = await getCurrentUser()
+    const currentUser = auth.currentUser
     setUser(currentUser)
     return currentUser
   }
