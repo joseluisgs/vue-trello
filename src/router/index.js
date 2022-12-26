@@ -59,10 +59,11 @@ router.beforeEach(async (to, from, next) => {
   // si va a Auth y hay usuario, redirigimos a Board
   else if (to.name === 'Auth' && user) {
     next({ name: 'Board' })
-  }
 
-  // Si no hay ninguna de las anteriores, seguimos
-  next()
+    // Si no hay ninguna de las anteriores, seguimos
+  } else {
+    next()
+  }
 })
 
 export default router

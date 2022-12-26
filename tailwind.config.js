@@ -51,31 +51,7 @@ module.exports = {
     // Se ponen por orden
     themes: [
       'light',
-      'night', // Al ponerlo es elk tema por
-      'dark',
-      {
-        // Un tema personalizado con daisyui
-        // https://daisyui.com/theme-generator/
-        joseluisgs: {
-          primary: '#7c3aed',
-
-          secondary: '#22d3ee',
-
-          accent: '#34d399',
-
-          neutral: '#3D4451',
-
-          'base-100': '#fdfdfd', // Este es el fondo
-
-          info: '#3ABFF8',
-
-          success: '#36D399',
-
-          warning: '#fde047',
-
-          error: '#fb7185',
-        },
-      },
+      'night',
     ],
   },
 }

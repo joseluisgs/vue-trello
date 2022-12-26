@@ -17,7 +17,7 @@
   // Cuando se monta el componente, se cambia el tema
   onMounted(async () => {
     const user = await userStore.getUser()
-    await boardStore.getBoard(user)
+    await boardStore.initData(user)
   })
 </script>
 

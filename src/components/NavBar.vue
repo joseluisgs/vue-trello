@@ -29,9 +29,7 @@
           class="dropdown-content menu rounded-box menu-compact mt-3 w-52 bg-base-100 p-2 shadow"
         >
           <li>
-            <a>
-              {{ userStore.userDisplayName }}</a
-            >
+            <a> {{ userStore.userDisplayName }}</a>
           </li>
           <li>
             <a @click="userLogout"
@@ -84,6 +82,7 @@
           class="mr-2 text-secondary"
         />
         <a
+          @click="createColumn"
           href="#"
           class="text-sm text-secondary"
         >
@@ -122,6 +121,15 @@
     try {
       await userStore.userLogout()
       router.push({ name: 'Auth' })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  async function createColumn() {
+    try {
+      const user = await userStore.getUser()
+      await boardStore.createColumn(user)
     } catch (error) {
       console.log(error)
     }
