@@ -2,8 +2,9 @@ import { defineStore } from 'pinia'
 import { computed, ref } from 'vue'
 
 // Firebase
-import { signInWithPopup, GoogleAuthProvider } from 'firebase/auth'
+import { signInWithPopup, GoogleAuthProvider, onAuthStateChanged } from 'firebase/auth'
 import { auth } from '@/services/Firebase'
+import { useBoardStore } from './board'
 
 // Definimo nuestra store con Oinia similar a un composable!!!
 
@@ -29,23 +30,28 @@ export const useUserStore = defineStore('user', () => {
     user.value = currentUser
   }
 
-  async function getUser() {
-    // Get user from firebase
-    const currentUser = auth.currentUser
-    setUser(currentUser)
-    return currentUser
+  function getUser() {
+    // Get user from firebase as a promise
+    return new Promise((resolve) => {
+      auth.onAuthStateChanged((user) => {
+        setUser(user)
+        resolve(user)
+      })
+    })
   }
 
   async function userLogin() {
     // Login with firebase
-    const auth = useFirebaseAuth()
     await signInWithPopup(auth, new GoogleAuthProvider())
-    getUser()
+    await getUser()
+    // Get board from firebase
+    const boardStore = useBoardStore()
+    // Inicializamos el board
+    await boardStore.initData(user.value)
   }
 
   async function userLogout() {
     // Logout from firebase
-    const auth = useFirebaseAuth()
     await auth.signOut()
     setUser(null)
   }

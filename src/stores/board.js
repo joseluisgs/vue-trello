@@ -58,7 +58,6 @@ export const useBoardStore = defineStore('board', () => {
 
   function setColumns(newColumns) {
     columns.value = newColumns
-    console.log(columns.value)
   }
 
   async function getColumns(user) {
