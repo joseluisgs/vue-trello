@@ -14,11 +14,11 @@
   const boardStore = useBoardStore()
   const userStore = useUserStore()
 
-  // Cuando se monta el componente, se cambia el tema
-  // onMounted(async () => {
-  //   const user = await userStore.getUser()
-  //   await boardStore.initData(user)
-  // })
+  //Cuando se monta el componente, se cambia el tema
+  onMounted(async () => {
+    const user = await userStore.getUser()
+    await boardStore.initData(user)
+  })
 </script>
 
 <style scoped></style>

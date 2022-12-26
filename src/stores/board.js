@@ -96,6 +96,7 @@ export const useBoardStore = defineStore('board', () => {
   }
 
   async function initData(user) {
+    console.log('initData')
     await getBoard(user)
     await getColumns(user)
   }
