@@ -2,7 +2,7 @@ import { defineStore } from 'pinia'
 import { computed, ref } from 'vue'
 
 // Firebase
-import { boardsCollection, columnsCollection } from '@/services/Firebase'
+import { boardsCollection, columnsCollection, cardsCollection } from '@/services/Firebase'
 import {
   deleteDoc,
   doc,
@@ -22,7 +22,8 @@ export const useBoardStore = defineStore('board', () => {
   const columns = ref([])
   const cards = ref([])
 
-  const unsubscribeBoard = ref(null)
+  const unsubscribeColumns = ref(null)
+  const unsubscribeCards = ref(null)
 
   // Getter son computed
   const boardName = computed(() => board.value.name)
@@ -41,6 +42,8 @@ export const useBoardStore = defineStore('board', () => {
   )
 
   // Mutations y Actions son funciones
+
+  // Board
   function setBoard(newBoard) {
     board.value = newBoard
   }
@@ -76,6 +79,21 @@ export const useBoardStore = defineStore('board', () => {
     })
   }
 
+  async function initBoard(user) {
+    console.log('initData')
+    await getBoard(user)
+    await getColumns(user)
+    await getCards(user)
+  }
+
+  async function resetBoard() {
+    // Quitamos los listeners de firebase
+    console.log('unsubscribe')
+    unsubscribeColumns.value()
+    unsubscribeCards.value()
+  }
+
+  // Columns
   function setColumns(newColumns) {
     columns.value = newColumns
   }
@@ -84,7 +102,7 @@ export const useBoardStore = defineStore('board', () => {
     console.log('obteniendo columnas')
     const uid = user.uid
     const q = query(columnsCollection, where('board', '==', uid))
-    unsubscribeBoard.value = onSnapshot(q, (querySnapshot) => {
+    unsubscribeColumns.value = onSnapshot(q, (querySnapshot) => {
       const columns = []
       querySnapshot.forEach((doc) => {
         columns.push(doc.data())
@@ -136,20 +154,28 @@ export const useBoardStore = defineStore('board', () => {
     // Deberíamos borrar las tarjetas de la columna
   }
 
+  // Cards
+
+  function setCards(newCards) {
+    cards.value = newCards
+  }
+
+  async function getCards(user) {
+    console.log('obteniendo tarjetas')
+    const uid = user.uid
+    const q = query(cardsCollection, where('board', '==', uid))
+    unsubscribeCards.value = onSnapshot(q, (querySnapshot) => {
+      const cards = []
+      querySnapshot.forEach((doc) => {
+        cards.push(doc.data())
+      })
+      setCards(cards)
+    })
+  }
+  
+
   function updateCards({ column, cards }) {
     console.log('updateCards', { column, cards })
-  }
-
-  async function initBoard(user) {
-    console.log('initData')
-    await getBoard(user)
-    await getColumns(user)
-  }
-
-  async function resetBoard() {
-    // Quitamos los listeners de firebase
-    console.log('unsubscribe')
-    unsubscribeBoard.value()
   }
 
   // Devolvemos el estado y las funciones que queramos que sean publicas
