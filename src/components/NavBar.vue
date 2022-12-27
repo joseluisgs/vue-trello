@@ -126,7 +126,7 @@
       await userStore.userLogout()
       router.push({ name: 'Auth' })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -135,7 +135,7 @@
       const user = await userStore.getUser()
       await boardStore.createColumn(user)
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -145,7 +145,7 @@
       if (event.target.innerText.trim() === '') return (event.target.innerText = boardName.value)
       await boardStore.updateBoardName(user.uid, event.target.innerText.trim())
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 </script>

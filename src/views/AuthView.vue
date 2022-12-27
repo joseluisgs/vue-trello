@@ -40,7 +40,7 @@
       await userStore.userLogin()
       router.push({ name: 'Board' })
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 </script>

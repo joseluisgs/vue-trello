@@ -1,12 +1,16 @@
 <template>
   <div class="column cursor-move rounded bg-gray-100 p-3 shadow-md">
     <div class="flex justify-between">
-      <div class="flex flex-row items-center justify-center">
+      <div
+        v-if="emptyColumn"
+        class="flex flex-row items-center justify-center"
+      >
         <Icon
           icon="material-symbols:delete"
           class="mr-1 text-gray-600"
         />
         <a
+          @click="deleteColumn"
           href="#"
           class="text-sm text-gray-600"
         >
@@ -28,7 +32,7 @@
       </div>
     </div>
     <h3
-      class="mb-3 text-center font-sans text-xl font-semibold tracking-wide text-primary-focus cursor-text"
+      class="mb-3 cursor-text text-center font-sans text-xl font-semibold tracking-wide text-primary-focus"
       contenteditable
       @blur="onEdit"
     >
@@ -42,6 +46,7 @@
 <script setup>
   import { useBoardStore } from '@/stores/board'
   import { Icon } from '@iconify/vue'
+  import { computed } from 'vue'
   // Mis propiedades
   const props = defineProps({
     column: {
@@ -51,13 +56,23 @@
 
   const boardStore = useBoardStore()
 
+  const emptyColumn = computed(() => boardStore.getCardsByColumn(props.column.id).length === 0)
+
   // Mis metodos
   async function onEdit(event) {
     try {
       if (event.target.innerText.trim() === '') return (event.target.innerText = props.column.name)
-      await boardStore.updateColummnName(props.column.id, event.target.innerText.trim())
+      await boardStore.updateColumnName(props.column.id, event.target.innerText.trim())
     } catch (error) {
-      console.log(error)
+      console.error(error)
+    }
+  }
+
+  async function deleteColumn() {
+    try {
+      await boardStore.deleteColumn(props.column.id)
+    } catch (error) {
+      console.error(error)
     }
   }
 </script>

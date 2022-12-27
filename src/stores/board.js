@@ -3,7 +3,16 @@ import { computed, ref } from 'vue'
 
 // Firebase
 import { boardsCollection, columnsCollection } from '@/services/Firebase'
-import { doc, getDoc, onSnapshot, query, setDoc, updateDoc, where } from 'firebase/firestore'
+import {
+  deleteDoc,
+  doc,
+  getDoc,
+  onSnapshot,
+  query,
+  setDoc,
+  updateDoc,
+  where,
+} from 'firebase/firestore'
 
 // Definimo nuestra store con Oinia similar a un composable!!!
 
@@ -98,7 +107,7 @@ export const useBoardStore = defineStore('board', () => {
     await setDoc(refDoc, column)
   }
 
-  async function updateColummnName(idColumn, newName) {
+  async function updateColumnName(idColumn, newName) {
     const columnRef = doc(columnsCollection, idColumn)
     await updateDoc(columnRef, {
       name: newName,
@@ -113,13 +122,18 @@ export const useBoardStore = defineStore('board', () => {
   }
 
   function updateColumns(columns) {
-    console.log('updateColumns', columns)
     columns.forEach(async (column, index) => {
       if (column.order !== index) {
         column.order = index
         await updateColumnOrder(column)
       }
     })
+  }
+
+  async function deleteColumn(idColumn) {
+    const columnRef = doc(columnsCollection, idColumn)
+    await deleteDoc(columnRef)
+    // Deberíamos borrar las tarjetas de la columna
   }
 
   function updateCards({ column, cards }) {
@@ -151,7 +165,8 @@ export const useBoardStore = defineStore('board', () => {
     updateColumns,
     updateCards,
     createColumn,
-    updateColummnName,
+    updateColumnName,
+    deleteColumn,
     initBoard,
     resetBoard,
   }
