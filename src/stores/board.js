@@ -41,6 +41,10 @@ export const useBoardStore = defineStore('board', () => {
     () => Math.max(...columns.value.map((column) => column.order)) + 1
   )
 
+  const getNextCardOrder = computed(
+    () => Math.max(...cards.value.map((card) => card.order)) + 1
+  )
+
   // Mutations y Actions son funciones
 
   // Board
@@ -152,7 +156,6 @@ export const useBoardStore = defineStore('board', () => {
   async function deleteColumn(idColumn) {
     const columnRef = doc(columnsCollection, idColumn)
     await deleteDoc(columnRef)
-    // Deberíamos borrar las tarjetas de la columna
   }
 
   // Cards
@@ -174,6 +177,25 @@ export const useBoardStore = defineStore('board', () => {
     })
   }
 
+  async function createCard(user, columnId) {
+    console.log('creando tarjeta', user.uid, columnId)
+    const refDoc = doc(cardsCollection)
+    const { id } = refDoc
+    // Creamos la columna por defecto
+    const card = {
+      name: 'New Card',
+      description: 'This is a card description',
+      id,
+      board: user.uid,
+      column: columnId,
+      date: new Date().getTime() + 5 * 24 * 60 * 60 * 1000, // 5 dias
+      done: false,
+      order: cards.value.length ? getNextCardOrder.value : 0, // Si no hay columnas, el orden es 0 sino el maximo orden + 1
+    }
+    // Guardamos la tarjeta en firebase
+    await setDoc(refDoc, card)
+  }
+
   async function updateCardMetadata(card) {
     const cardRef = doc(cardsCollection, card.id)
     await updateDoc(cardRef, {
@@ -186,7 +208,7 @@ export const useBoardStore = defineStore('board', () => {
     console.log('updateCards', column, cards)
     cards.forEach(async (card, index) => {
       // Ha cambiado el orden de la tarjeta? --> en la columna o se ha ido a tra columna o ambas
-      if (card.order !== index || card.column !== column.id) {
+      if (card.order !== index || card.column !== column.id ) {
         card.order = index
         card.column = column.id
         await updateCardMetadata(card)
@@ -209,6 +231,7 @@ export const useBoardStore = defineStore('board', () => {
     createColumn,
     updateColumnName,
     deleteColumn,
+    createCard,
     initBoard,
     resetBoard,
   }

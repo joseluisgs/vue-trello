@@ -2,14 +2,13 @@
   <div class="column cursor-move rounded bg-gray-100 p-3 shadow-md">
     <div class="flex justify-between">
       <div
-        v-if="emptyColumn"
         class="flex flex-row items-center justify-center"
       >
-        <Icon
+        <Icon v-if="emptyColumn"
           icon="material-symbols:delete"
           class="mr-1 text-gray-600"
         />
-        <a
+        <a v-if="emptyColumn"
           @click="deleteColumn"
           href="#"
           class="text-sm text-gray-600"
@@ -24,6 +23,7 @@
           class="mr-1 text-gray-600"
         />
         <a
+          @click="createCard"
           href="#"
           class="text-sm text-gray-600"
         >
@@ -45,6 +45,7 @@
 
 <script setup>
   import { useBoardStore } from '@/stores/board'
+  import { useUserStore } from '@/stores/user'
   import { Icon } from '@iconify/vue'
   import { computed } from 'vue'
   // Mis propiedades
@@ -55,6 +56,7 @@
   })
 
   const boardStore = useBoardStore()
+  const userStore = useUserStore()
 
   const emptyColumn = computed(() => boardStore.getCardsByColumn(props.column.id).length === 0)
 
@@ -71,6 +73,15 @@
   async function deleteColumn() {
     try {
       await boardStore.deleteColumn(props.column.id)
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  async function createCard() {
+    try {
+      const user = await userStore.getUser()
+      await boardStore.createCard(user, props.column.id)
     } catch (error) {
       console.error(error)
     }
