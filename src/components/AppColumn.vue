@@ -6,12 +6,12 @@
       >
         <Icon v-if="emptyColumn"
           icon="material-symbols:delete"
-          class="mr-1 text-gray-600"
+          class="mr-1 text-red-500"
         />
         <a v-if="emptyColumn"
           @click="deleteColumn"
           href="#"
-          class="text-sm text-gray-600"
+          class="text-sm text-red-500"
         >
           Delete</a
         >
@@ -20,19 +20,19 @@
       <div class="flex flex-row items-center justify-center">
         <Icon
           icon="mdi:card-plus"
-          class="mr-1 text-gray-600"
+          class="mr-1 text-indigo-500"
         />
         <a
           @click="createCard"
           href="#"
-          class="text-sm text-gray-600"
+          class="text-sm text-indigo-500"
         >
           Create Card</a
         >
       </div>
     </div>
     <h3
-      class="mb-3 cursor-text text-center font-sans text-xl font-semibold tracking-wide text-primary-focus"
+      class="mb-3 cursor-text text-center font-sans text-xl font-semibold tracking-wide text-primary-focus py-1"
       contenteditable
       @blur="onEdit"
     >
