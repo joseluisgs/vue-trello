@@ -30,11 +30,7 @@
   // De nuevo podemos usar directamente la store
   const cards = computed({
     get: () => boardStore.getCardsByColumn(props.column.id),
-    set: (cards) =>
-      boardStore.updateCards({
-        column: props.column,
-        cards: cards,
-      }),
+    set: (cards) => boardStore.updateCards(props.column, cards),
   })
 </script>
 

@@ -2,7 +2,7 @@ import { defineStore } from 'pinia'
 import { computed, ref } from 'vue'
 
 // Firebase
-import { boardsCollection, columnsCollection, cardsCollection } from '@/services/Firebase'
+import { boardsCollection, cardsCollection, columnsCollection } from '@/services/Firebase'
 import {
   deleteDoc,
   doc,
@@ -62,12 +62,12 @@ export const useBoardStore = defineStore('board', () => {
 
     // Si no existe el board, creamos uno por defecto
     if (!myBoard.exists()) {
-      console.log('Creando board por defecto')
+      console.log('Creando board vacío para usuario')
       await setDoc(doc(boardsCollection, uid), defaultBoard)
       setBoard(defaultBoard)
     } else {
       // Si existe el board, creamos uno por defecto
-      console.log('Obtener el board por defecto')
+      console.log('Obtener el board del usuario')
       setBoard(myBoard.data())
     }
   }
@@ -141,6 +141,7 @@ export const useBoardStore = defineStore('board', () => {
 
   function updateColumns(columns) {
     columns.forEach(async (column, index) => {
+      // Ha cambiado el orden de la columna?
       if (column.order !== index) {
         column.order = index
         await updateColumnOrder(column)
@@ -172,10 +173,25 @@ export const useBoardStore = defineStore('board', () => {
       setCards(cards)
     })
   }
-  
 
-  function updateCards({ column, cards }) {
-    console.log('updateCards', { column, cards })
+  async function updateCardMetadata(card) {
+    const cardRef = doc(cardsCollection, card.id)
+    await updateDoc(cardRef, {
+      order: card.order,
+      column: card.column,
+    })
+  }
+
+  function updateCards(column, cards) {
+    console.log('updateCards', column, cards)
+    cards.forEach(async (card, index) => {
+      // Ha cambiado el orden de la tarjeta? --> en la columna o se ha ido a tra columna o ambas
+      if (card.order !== index || card.column !== column.id) {
+        card.order = index
+        card.column = column.id
+        await updateCardMetadata(card)
+      }
+    })
   }
 
   // Devolvemos el estado y las funciones que queramos que sean publicas
