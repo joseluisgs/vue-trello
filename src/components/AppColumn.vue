@@ -1,5 +1,5 @@
 <template>
-  <div class="column mr-4 cursor-move rounded bg-gray-100 p-3 shadow-md">
+  <div class="column cursor-move rounded bg-gray-100 p-3 shadow-md">
     <div class="flex justify-between">
       <div class="flex flex-row items-center justify-center">
         <Icon
@@ -28,7 +28,7 @@
       </div>
     </div>
     <h3
-      class="mb-3 cursor-default text-center font-sans text-xl font-semibold tracking-wide text-primary-focus"
+      class="mb-3 text-center font-sans text-xl font-semibold tracking-wide text-primary-focus cursor-text"
       contenteditable
       @blur="onEdit"
     >

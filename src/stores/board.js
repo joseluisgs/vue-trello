@@ -105,8 +105,21 @@ export const useBoardStore = defineStore('board', () => {
     })
   }
 
+  async function updateColumnOrder(column) {
+    const columnRef = doc(columnsCollection, column.id)
+    await updateDoc(columnRef, {
+      order: column.order,
+    })
+  }
+
   function updateColumns(columns) {
     console.log('updateColumns', columns)
+    columns.forEach(async (column, index) => {
+      if (column.order !== index) {
+        column.order = index
+        await updateColumnOrder(column)
+      }
+    })
   }
 
   function updateCards({ column, cards }) {
