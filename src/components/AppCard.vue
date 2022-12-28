@@ -8,6 +8,7 @@
         <h1
           contenteditable
           class="ml-2 cursor-text text-center font-sans text-2xl font-semibold tracking-wide text-primary-focus"
+          @blur="updateCard('name', $event)"
         >
           {{ card.name }}
         </h1>
@@ -33,17 +34,20 @@
             id="done"
             :checked="card.done"
             class="checkbox-success checkbox checkbox-xs"
+            @change="updateCard('done', $event)"
           />
         </div>
         <input
-          class="bg-indigo-400 rounded p-1 text-sm text-primary-content"
+          class="rounded bg-indigo-400 p-1 text-sm text-primary-content"
           type="date"
           :value="cardDate"
+          @change="updateCard('date', $event)"
         />
       </div>
       <p
         contenteditable
-        class="cursor-text text-gray-600 text-sm"
+        class="cursor-text text-sm text-gray-600"
+        @blur="updateCard('description', $event)"
       >
         {{ card.description }}
       </p>
@@ -52,9 +56,10 @@
 </template>
 
 <script setup>
-  import UserAvatar from '@/components/UserAvatar.vue';
-import { Icon } from '@iconify/vue';
-import { computed } from 'vue';
+  import UserAvatar from '@/components/UserAvatar.vue'
+  import { useBoardStore } from '@/stores/board'
+  import { Icon } from '@iconify/vue'
+  import { computed } from 'vue'
 
   // Mis propiedades
   const props = defineProps({
@@ -63,7 +68,30 @@ import { computed } from 'vue';
     },
   })
 
+  const boardStore = useBoardStore()
+
   const cardDate = computed(() => new Date(+props.card.date).toLocaleDateString('en-CA'))
+
+  async function updateCard(key, evt) {
+    await boardStore.updateCardInfo({
+      id: props.card.id,
+      key,
+      value: getValue(key, evt),
+    })
+  }
+
+  function getValue(key, evt) {
+    if (key === 'name' || key === 'description') {
+      if(evt.target.innerText.trim() === '') {
+        evt.target.innerText = props.card[key]
+        return props.card[key]
+      }
+    } else if (key === 'date') {
+      return new Date(evt.target.value).getTime()
+    } else if (key === 'done') {
+      return evt.target.checked
+    }
+  }
 </script>
 
 <style scoped></style>

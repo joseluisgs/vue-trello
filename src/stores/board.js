@@ -214,6 +214,15 @@ export const useBoardStore = defineStore('board', () => {
     })
   }
 
+  async function updateCardInfo(card) {
+    const [id, key, value] = Object.values(card)
+    console.log('updateCardInfo', id, key, value)
+    const cardRef = doc(cardsCollection, id)
+    await updateDoc(cardRef, {
+      [key]: value,
+    })
+  }
+
   function checkCard(cardId) {
     return new Promise(async (resolve, reject) => {
       // Buscamos localmente en el estado
@@ -255,6 +264,7 @@ export const useBoardStore = defineStore('board', () => {
     deleteColumn,
     createCard,
     checkCard,
+    updateCardInfo,
     initBoard,
     resetBoard,
   }
