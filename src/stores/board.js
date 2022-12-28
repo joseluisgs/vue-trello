@@ -214,15 +214,6 @@ export const useBoardStore = defineStore('board', () => {
     })
   }
 
-  async function updateCardInfo(card) {
-    const [id, key, value] = Object.values(card)
-    console.log('updateCardInfo', id, key, value)
-    const cardRef = doc(cardsCollection, id)
-    await updateDoc(cardRef, {
-      [key]: value,
-    })
-  }
-
   function checkCard(cardId) {
     return new Promise(async (resolve, reject) => {
       // Buscamos localmente en el estado
@@ -247,6 +238,20 @@ export const useBoardStore = defineStore('board', () => {
     })
   }
 
+  async function updateCardInfo(card) {
+    const [id, key, value] = Object.values(card)
+    console.log('updateCardInfo', id, key, value)
+    const cardRef = doc(cardsCollection, id)
+    await updateDoc(cardRef, {
+      [key]: value,
+    })
+  }
+
+  async function deleteCard(idCard) {
+    const cardRef = doc(cardsCollection, idCard)
+    await deleteDoc(cardRef)
+  }
+
   // Devolvemos el estado y las funciones que queramos que sean publicas
   // quitar las que no queramos que sean publicas
   return {
@@ -265,6 +270,7 @@ export const useBoardStore = defineStore('board', () => {
     createCard,
     checkCard,
     updateCardInfo,
+    deleteCard,
     initBoard,
     resetBoard,
   }

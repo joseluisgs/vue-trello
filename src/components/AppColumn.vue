@@ -7,6 +7,7 @@
         <Icon v-if="emptyColumn"
           icon="material-symbols:delete"
           class="mr-1 text-red-500"
+          @click="deleteColumn"
         />
         <a v-if="emptyColumn"
           @click="deleteColumn"
