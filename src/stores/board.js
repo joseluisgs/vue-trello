@@ -41,9 +41,7 @@ export const useBoardStore = defineStore('board', () => {
     () => Math.max(...columns.value.map((column) => column.order)) + 1
   )
 
-  const getNextCardOrder = computed(
-    () => Math.max(...cards.value.map((card) => card.order)) + 1
-  )
+  const getNextCardOrder = computed(() => Math.max(...cards.value.map((card) => card.order)) + 1)
 
   // Mutations y Actions son funciones
 
@@ -208,10 +206,34 @@ export const useBoardStore = defineStore('board', () => {
     console.log('updateCards', column, cards)
     cards.forEach(async (card, index) => {
       // Ha cambiado el orden de la tarjeta? --> en la columna o se ha ido a tra columna o ambas
-      if (card.order !== index || card.column !== column.id ) {
+      if (card.order !== index || card.column !== column.id) {
         card.order = index
         card.column = column.id
         await updateCardMetadata(card)
+      }
+    })
+  }
+
+  function checkCard(cardId) {
+    return new Promise(async (resolve, reject) => {
+      // Buscamos localmente en el estado
+      if (cards.value.length) {
+        const localCard = cards.value.find((card) => card.id === cardId)
+        if (localCard) {
+          resolve(localCard)
+        } else {
+          reject('Card not found')
+        }
+      } else {
+        // Si no hay tarjetas en el estado, las buscamos en firebase
+        console.log('Buscando en firebase')
+        const myCardRef = doc(cardsCollection, cardId)
+        const myCard = await getDoc(myCardRef)
+        if (myCard.exists()) {
+          resolve(myCard.data())
+        } else {
+          reject('Card not found')
+        }
       }
     })
   }
@@ -232,6 +254,7 @@ export const useBoardStore = defineStore('board', () => {
     updateColumnName,
     deleteColumn,
     createCard,
+    checkCard,
     initBoard,
     resetBoard,
   }

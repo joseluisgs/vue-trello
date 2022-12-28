@@ -1,17 +1,20 @@
 <template>
-  <div class="mb-3 cursor-move rounded border border-white bg-white px-3 pt-3 pb-5 shadow">
+  <div
+    class="mb-3 cursor-move rounded border border-white bg-white px-3 pt-3 pb-5 shadow"
+    @click="openCard"
+  >
     <h4 class="text-md font-sans font-semibold tracking-wide text-gray-700">
       {{ card.name }}
     </h4>
     <div class="mt-4 flex items-center justify-between">
-      <div class="flex flex-row justify-center items-center">
+      <div class="flex flex-row items-center justify-center">
         <Icon
           icon="material-symbols:calendar-month"
-          class="text-gray-500 mr-1"
+          class="mr-1 text-gray-500"
         />
         <p class="text-xs text-gray-500">{{ cardDate }}</p>
       </div>
-  
+
       <UserAvatar />
     </div>
   </div>
@@ -21,6 +24,7 @@
   import UserAvatar from '@/components/UserAvatar.vue'
   import { Icon } from '@iconify/vue'
   import { computed } from 'vue'
+  import { useRouter } from 'vue-router'
 
   // Mis propiedades
   const props = defineProps({
@@ -29,7 +33,13 @@
     },
   })
 
+  const router = useRouter()
+
   const cardDate = computed(() => new Date(+props.card.date).toLocaleDateString('es-ES'))
+
+  function openCard() {
+    router.push({ name: 'Card', params: { id: props.card.id } })
+  }
 </script>
 
 <style scoped></style>
