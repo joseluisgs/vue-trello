@@ -1,12 +1,10 @@
 <template>
   <div>Card View</div>
-  <div>{{ card.name }}</div>
-  <div>{{ card.description }}</div>
-  <div>{{ card.date}}</div>
-
+  <AppCard :card="card" />
 </template>
 
 <script setup>
+  import AppCard from '@/components/AppCard.vue'
   import { useBoardStore } from '@/stores/board'
   import { onMounted, ref, watch } from 'vue'
   import { useRoute, useRouter } from 'vue-router'
@@ -42,7 +40,6 @@
       await fetchCard()
     }
   )
-
 </script>
 
 <style scoped></style>

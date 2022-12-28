@@ -7,12 +7,12 @@
       {{ card.name }}
     </h4>
     <div class="mt-4 flex items-center justify-between">
-      <div class="flex flex-row items-center justify-center">
+      <div class="flex flex-row items-center justify-center text-indigo-500">
         <Icon
           icon="material-symbols:calendar-month"
-          class="mr-1 text-gray-500"
+          class="mr-1"
         />
-        <p class="text-xs text-gray-500">{{ cardDate }}</p>
+        <p class="text-xs">{{ cardDate }}</p>
       </div>
 
       <UserAvatar />
