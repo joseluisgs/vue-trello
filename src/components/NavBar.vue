@@ -12,9 +12,10 @@
     <div class="flex-none gap-2">
       <div class="form-control">
         <input
-          type="text"
+          type="search"
           placeholder="Search Card"
           class="input-bordered input"
+          v-model="searchTerm"
         />
       </div>
       <div class="dropdown-end dropdown">
@@ -103,7 +104,7 @@
   import { useUserStore } from '@/stores/user'
   import { Icon } from '@iconify/vue'
   import { themeChange } from 'theme-change'
-  import { computed, onMounted, watchEffect } from 'vue'
+  import { computed, onMounted } from 'vue'
   import { useRouter } from 'vue-router'
 
   // La store
@@ -120,6 +121,11 @@
 
   // computed de avatar, podría usar la store directamente
   const boardName = computed(() => boardStore.boardName)
+
+  const searchTerm = computed({
+    get: () => boardStore.getSearchTerm,
+    set: (value) => boardStore.setSearchTerm(value),
+  })
 
   async function userLogout() {
     try {

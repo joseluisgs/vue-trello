@@ -1,15 +1,15 @@
 <template>
   <div class="column cursor-move rounded bg-gray-100 p-3 shadow-md">
     <div class="flex justify-between">
-      <div
-        class="flex flex-row items-center justify-center"
-      >
-        <Icon v-if="emptyColumn"
+      <div class="flex flex-row items-center justify-center">
+        <Icon
+          v-if="emptyColumn"
           icon="material-symbols:delete"
           class="mr-1 text-red-500"
           @click="deleteColumn"
         />
-        <a v-if="emptyColumn"
+        <a
+          v-if="emptyColumn"
           @click="deleteColumn"
           href="#"
           class="text-sm text-red-500"
@@ -33,7 +33,7 @@
       </div>
     </div>
     <h3
-      class="mb-3 cursor-text text-center font-sans text-xl font-semibold tracking-wide text-primary-focus py-1"
+      class="mb-3 cursor-text py-1 text-center font-sans text-xl font-semibold tracking-wide text-primary-focus"
       contenteditable
       @blur="onEdit"
     >
@@ -59,7 +59,11 @@
   const boardStore = useBoardStore()
   const userStore = useUserStore()
 
-  const emptyColumn = computed(() => boardStore.getCardsByColumn(props.column.id).length === 0)
+  // Ojo, no borar si hay algo de búsqueda
+  const emptyColumn = computed(
+    () =>
+      boardStore.getCardsByColumn(props.column.id).length === 0 && boardStore.getSearchTerm === ''
+  )
 
   // Mis metodos
   async function onEdit(event) {

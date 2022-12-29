@@ -21,6 +21,7 @@ export const useBoardStore = defineStore('board', () => {
   const board = ref({})
   const columns = ref([])
   const cards = ref([])
+  const searchTerm = ref('')
 
   const unsubscribeColumns = ref(null)
   const unsubscribeCards = ref(null)
@@ -35,7 +36,11 @@ export const useBoardStore = defineStore('board', () => {
   )
   const getCardsByColumn = computed(
     () => (column) =>
-      cards.value.filter((card) => card.column === column).sort((a, b) => a.order - b.order)
+      cards.value
+        .filter(
+          (card) => card.column === column && card.name.match(new RegExp(searchTerm.value, 'i'))
+        )
+        .sort((a, b) => a.order - b.order)
   )
 
   const getNextColumnOrder = computed(
@@ -45,6 +50,8 @@ export const useBoardStore = defineStore('board', () => {
   const getNextCardOrder = computed(() => Math.max(...cards.value.map((card) => card.order)) + 1)
 
   const getBoardBackgroundColor = computed(() => board.value.backgroundColor)
+
+  const getSearchTerm = computed(() => searchTerm.value)
 
   // Mutations y Actions son funciones
 
@@ -262,6 +269,10 @@ export const useBoardStore = defineStore('board', () => {
     await deleteDoc(cardRef)
   }
 
+  function setSearchTerm(newSearchTerm) {
+    searchTerm.value = newSearchTerm.trim()
+  }
+
   // Devolvemos el estado y las funciones que queramos que sean publicas
   // quitar las que no queramos que sean publicas
   return {
@@ -283,6 +294,8 @@ export const useBoardStore = defineStore('board', () => {
     deleteCard,
     getBoardBackgroundColor,
     updateBoardBackgroundColor,
+    setSearchTerm,
+    getSearchTerm,
     initBoard,
     resetBoard,
   }
