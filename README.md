@@ -28,7 +28,10 @@ Práctica de clon de Trello, es decir, una aplicación de gestión de tareas, us
       - [Agradecimientos](#agradecimientos)
 
 ## Acerca de
-Supuesto práctico de cómo realizar un clon de Trello usando Vue 3 y Vite usando Tailwind y Firebase. Nos hemos apoyado en DaisyUI para el diseño para que sea más sencillo y rápido.
+Supuesto práctico de cómo realizar un clon de Trello para Kanban usando Vue 3 y Vite usando Tailwind y Firebase. Nos hemos apoyado en DaisyUI para el diseño IU para que sea más sencillo y rápido.
+Permitimos arrastrar y soltar columnas y tarjetas, además de poder crear, editar y eliminar columnas y tarjetas.
+![Vue Trello](/images/img01.png)
+![Vue Trello](/images/img02.png)
 
 ## Despliegue
 Desplegada en Netlify: [https://vue-trello-kanban.netlify.app/](https://vue-trello-kanban.netlify.app/)
