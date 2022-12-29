@@ -1,7 +1,7 @@
 <template>
   <div class="avatar">
     <div class="w-8 rounded-full">
-      <img :src="userAvatar" />
+      <img :src="userAvatar"  referrerpolicy="no-referrer"/>
     </div>
   </div>
 </template>
@@ -14,7 +14,8 @@
   const userStore = useUserStore()
 
   // computed de avatar, podría usar la store directamente
-  const userAvatar = computed(() => userStore.userAvatar)
+const userAvatar = computed(() => userStore.userAvatar)
+  // console.log(userAvatar.value)
 </script>
 
 <style scoped></style>

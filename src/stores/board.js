@@ -27,6 +27,7 @@ export const useBoardStore = defineStore('board', () => {
 
   // Getter son computed
   const boardName = computed(() => board.value.name)
+
   const boardColumns = computed(() =>
     columns.value
       .filter((column) => column.board === board.value.id)
@@ -42,6 +43,8 @@ export const useBoardStore = defineStore('board', () => {
   )
 
   const getNextCardOrder = computed(() => Math.max(...cards.value.map((card) => card.order)) + 1)
+
+  const getBoardBackgroundColor = computed(() => board.value.backgroundColor)
 
   // Mutations y Actions son funciones
 
@@ -78,6 +81,13 @@ export const useBoardStore = defineStore('board', () => {
     const boardRef = doc(boardsCollection, uid)
     await updateDoc(boardRef, {
       name: newName,
+    })
+  }
+
+  async function updateBoardBackgroundColor(uid, newColor) {
+    const boardRef = doc(boardsCollection, uid)
+    await updateDoc(boardRef, {
+      backgroundColor: newColor,
     })
   }
 
@@ -271,6 +281,8 @@ export const useBoardStore = defineStore('board', () => {
     checkCard,
     updateCardInfo,
     deleteCard,
+    getBoardBackgroundColor,
+    updateBoardBackgroundColor,
     initBoard,
     resetBoard,
   }

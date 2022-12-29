@@ -12,7 +12,7 @@
     <div class="container">
       <a
         @click="userLogin"
-        class="flex h-screen w-full cursor-pointer items-center justify-center font-semibold text-primary underline hover:text-primary-focus"
+        class="flex h-screen w-full cursor-pointer items-center justify-center font-semibold text-primary underline hover:text-primary-focus text-lg"
         href="#"
         ><Icon icon="material-symbols:login" /> Login please</a
       >
