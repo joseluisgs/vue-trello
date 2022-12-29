@@ -1,5 +1,5 @@
 <template>
-  <div class="navbar bg-base-100">
+  <div class="navbar bg-base-100 flex-col md:flex-row">
     <div class="flex-1">
       <Icon
         icon="mdi:trello"
@@ -9,7 +9,7 @@
         Vue Trello
       </h1>
     </div>
-    <div class="flex-none gap-2">
+    <div class="flex-none gap-2 p-4 lg:py-0">
       <div class="form-control">
         <input
           type="search"

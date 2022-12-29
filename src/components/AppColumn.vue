@@ -95,6 +95,6 @@
 
 <style scoped>
   .column {
-    @apply basis-1/4; /* flex-basis: 25%   25% del ancho del contenedor 4 columnas */
+    @apply basis-1/4 min-w-[14rem]; /* flex-basis: 25%   25% del ancho del contenedor 4 columnas */
   }
 </style>

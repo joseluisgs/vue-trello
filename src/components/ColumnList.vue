@@ -33,6 +33,6 @@
 
 <style scoped>
   .board {
-    @apply grid min-h-[50vh] overflow-x-auto py-10 grid-cols-5 gap-4;
+    @apply grid min-h-[50vh] overflow-x-auto py-10 gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-5;
   }
 </style>
